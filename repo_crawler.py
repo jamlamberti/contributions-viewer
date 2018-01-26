@@ -11,7 +11,7 @@ authors = []
 emails  = []
 for repo in map(os.path.abspath, sys.argv[1:]):
     r = git.Repo(repo)
-
+    r.git.fetch()
     branches = r.git.branch('-r', '--color=never')
     branches = list(set([i.strip() for i in branches.split()])-set(['->', 'origin/HEAD']))
     print branches
