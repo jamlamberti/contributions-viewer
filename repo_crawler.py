@@ -9,7 +9,10 @@ from collections import defaultdict
 commits = []
 authors = []
 emails  = []
-for repo in map(os.path.abspath, sys.argv[1:]):
+args = sys.argv[1:]
+if len(args) == 0:
+    args = [os.path.abspath(os.path.join('repos', i)) for i in os.listdir('repos/')]
+for repo in map(os.path.abspath, args):
     r = git.Repo(repo)
     r.git.fetch()
     branches = r.git.branch('-r', '--color=never')
