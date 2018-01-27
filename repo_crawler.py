@@ -14,7 +14,10 @@ if len(args) == 0:
     args = [os.path.abspath(os.path.join('repos', i)) for i in os.listdir('repos/')]
 for repo in map(os.path.abspath, args):
     r = git.Repo(repo)
-    r.git.fetch()
+    try:
+        r.git.fetch()
+    except git.exc.GitCommandError, e:
+        pass
     branches = r.git.branch('-r', '--color=never')
     branches = list(set([i.strip() for i in branches.split()])-set(['->', 'origin/HEAD']))
     print branches
