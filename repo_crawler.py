@@ -31,7 +31,7 @@ for repo in map(os.path.abspath, args):
                     authors.append(commit.author)
                 if commit.committer.email not in emails:
                     emails.append(commit.committer.email)
-print len(commits)
+
 d = defaultdict(int)
 for c in commits:
     d[c] += 1
@@ -42,6 +42,3 @@ dates = map(datetime.datetime.fromtimestamp, commits)
 hours = map(lambda x: x.strftime("%H"), dates)
 for i in range(24):
     print i, hours.count(str(i).zfill(2))
-
-print authors
-print emails
